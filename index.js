@@ -62,6 +62,11 @@
     document.getElementById("editPrice").value = record.price;
     document.getElementById("editStock").value = record.stock;
   }
+  function cancelEditModal() {
+    editingRecordId = null;
+    const editModal = document.getElementById("editModal");
+    editModal.style.display = "none";
+  }
   let editingRecordId = null;
   async function editRecord(recordId) {
     editingRecordId = recordId;
@@ -79,9 +84,10 @@
     const name = document.getElementById("editName").value;
     const price = document.getElementById("editPrice").value;
     const stock = document.getElementById("editStock").value;
-    console.log(editingRecordId);
+    console.log(name+price+stock);  
+    console.log(`${apiUrl}/${editingRecordId}`);
     const response = await fetch(`${apiUrl}/${editingRecordId}`, {
-      method: "PUT", // Assuming your API supports the PUT method for updates
+      method: "PATCH", // Assuming your API supports the PUT method for updates
       headers: {
         "Content-Type": "application/json",
       },
