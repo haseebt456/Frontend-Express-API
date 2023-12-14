@@ -36,21 +36,23 @@
   // Function to add a new record
   async function addRecord() {
       const name = document.getElementById("name").value;
-      const description = document.getElementById("description").value;
+      const price = document.getElementById("price").value;
+      const stock = document.getElementById("stock").value;
 
       const response = await fetch(apiUrl, {
           method: "POST",
           headers: {
               "Content-Type": "application/json"
           },
-          body: JSON.stringify({ name, description })
+          body: JSON.stringify({ name, price,stock })
       });
 
       if (response.ok) {
           fetchAndDisplayRecords();
           // Clear input fields after adding a record
           document.getElementById("name").value = "";
-          document.getElementById("description").value = "";
+          document.getElementById("price").value = "";
+          document.getElementById("stock").value = "";
       } else {
           console.error("Failed to add record");
       }
