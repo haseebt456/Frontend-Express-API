@@ -21,7 +21,7 @@
           const editButton = document.createElement("button");
           editButton.textContent = "Edit";
           editButton.onclick = () => editRecord(record._id);
-          
+          console.log(record._id);
           const deleteButton = document.createElement("button");
           deleteButton.textContent = "Delete";
           deleteButton.onclick = () => deleteRecord(record._id);
@@ -54,13 +54,45 @@
       }
   }
 
-  // Function to edit a record
+
+  function populateEditModal(record) {
+    document.getElementById("editName").value = record.name;
+    document.getElementById("editPrice").value = record.price;
+    document.getElementById("editStock").value = record.stock;
+  }
+  let editingRecordId = null;
   async function editRecord(recordId) {
-      // Implement the logic to edit a record
-      // You may use a modal or a form for editing
-      console.log(`Edit record with ID: ${recordId}`);
+    editingRecordId = recordId;
+    const editModal = document.getElementById("editModal");
+    editModal.style.display = "block";
+
+    // Fetch the record data and populate the edit modal
+    const response = await fetch(`${apiUrl}/${recordId}`);
+    const record = await response.json();
+    populateEditModal(record);
   }
 
+  // Function to update a record
+  async function updateRecord() {
+    const name = document.getElementById("editName").value;
+    const price = document.getElementById("editPrice").value;
+    const stock = document.getElementById("editStock").value;
+    console.log(editingRecordId);
+    const response = await fetch(`${apiUrl}/${editingRecordId}`, {
+      method: "PUT", // Assuming your API supports the PUT method for updates
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ name, price, stock }),
+    });
+
+    if (response.ok) {
+      fetchAndDisplayRecords();
+      cancelEditModal();
+    } else {
+      console.error("Failed to update record");
+    }
+  }
   // Function to delete a record
   async function deleteRecord(recordId) {
       const response = await fetch(`${apiUrl}/${recordId}`, {
@@ -73,6 +105,7 @@
           console.error("Failed to delete record");
       }
   }
+  
 
   // Initial fetch and display when the page loads
   fetchAndDisplayRecords();

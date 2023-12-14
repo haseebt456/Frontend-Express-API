@@ -32,6 +32,20 @@
         </thead>
         <tbody></tbody>
     </table>
-    <script src="./index.js"></script>
+
+    <div id="editModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="cancelEditModal()">&times;</span>
+            <h2>Edit Record</h2>
+            <label for="editName">Name:</label>
+            <input type="text" id="editName" required>
+            <label for="editPrice">Price:</label>
+            <input type="text" id="editPrice" required>
+            <label for="editStock">Stock:</label>
+            <input type="text" id="editStock" required>
+            <button type="button" onclick="updateRecord()">Update Record</button>
+        </div>
+    </div>
+    <script src="/index.js"></script>
 </body>
 </html>
