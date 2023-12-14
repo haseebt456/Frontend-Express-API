@@ -86,8 +86,6 @@
     const name = document.getElementById("editName").value;
     const price = document.getElementById("editPrice").value;
     const stock = document.getElementById("editStock").value;
-    console.log(name+price+stock);  
-    console.log(`${apiUrl}/${editingRecordId}`);
     const response = await fetch(`${apiUrl}/${editingRecordId}`, {
       method: "PATCH", // Assuming your API supports the PUT method for updates
       headers: {
