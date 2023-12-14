@@ -1,82 +1,78 @@
-const urlg = "https://crud-api-mongo-xvln.vercel.app/Products";
 
-//Post method
-const sendData = async (data)=>{
+  const apiUrl = "https://crud-api-mongo-xvln.vercel.app/Products";
 
-    let options = {
-        method: "POST",
-        headers: {
-            "content-type": "Application/json"
-        },
-        body: JSON.stringify(data)
-    }
+  // Function to fetch and display records
+  async function fetchAndDisplayRecords() {
+      const response = await fetch(apiUrl);
+      const data = await response.json();
+      const tableBody = document.querySelector("#recordTable tbody");
+      tableBody.innerHTML = "";
 
-    let p = await fetch(urlg,options);
-    let response = await p.json();
-    return response;
-};
+      data.forEach(record => {
+          const row = tableBody.insertRow();
+          const cell1 = row.insertCell(0);
+          const cell2 = row.insertCell(1);
+          const cell3 = row.insertCell(2);
 
-//get method
-const getData = async ()=>{
-    let p = await fetch(urlg,
-        {
-            method: "GET"
-        });
-    let response = await p.json();
-    console.log(response.result);
-}
+          cell1.textContent = record.name;
+          cell2.textContent = record.description;
 
-getData();
+          // Add buttons for Edit and Delete actions
+          const editButton = document.createElement("button");
+          editButton.textContent = "Edit";
+          editButton.onclick = () => editRecord(record._id);
+          
+          const deleteButton = document.createElement("button");
+          deleteButton.textContent = "Delete";
+          deleteButton.onclick = () => deleteRecord(record._id);
 
-//const products = document.querySelector('.products');
+          cell3.appendChild(editButton);
+          cell3.appendChild(deleteButton);
+      });
+  }
 
+  // Function to add a new record
+  async function addRecord() {
+      const name = document.getElementById("name").value;
+      const description = document.getElementById("description").value;
 
-/* //rendering data to DOM
-const render = async ()=>{
-    products.innerHTML = '';
-    const data = await getData();
-    products.innerHTML =  `<tr>
-    <td class = "head">Name</td>
-    <td class = "head">Price</td>
-    <td class = "head">Stock</td>
-</tr>`;
-    const list = data.map((item)=>{
-        const tr = document.createElement('tr');
-                const td1 = document.createElement('td');
-                const td2 = document.createElement('td');
-                const td3 = document.createElement('td');
-                td1.innerHTML = item.name;
-                td2.innerHTML = item.price;
-                td3.innerHTML = item.stock;
-                td1.setAttribute('class','name');
-                td2.setAttribute('class','price');
-                td3.setAttribute('class','stock');
-                tr.appendChild(td1);
-                tr.appendChild(td2);
-                tr.appendChild(td3);
-                scorecard.appendChild(tr);
-        })
-}
+      const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ name, description })
+      });
 
-//adding event listener
-document.addEventListener('DOMContentLoaded', () => {
-    // Add event listeners to the buttons
-    document.querySelector('#refresh').addEventListener('click', async () => { render(); });
-  
-    document.getElementById('input-data').addEventListener('submit', async (event) => {
-      event.preventDefault();
-      let nameValue= document.querySelector('#name').value;
-    let scoreValue = document.querySelector('#score').value;
-    console.log(nameValue+" is being added with score "+scoreValue);
-    let data = {
-        user: nameValue,
-        score: scoreValue
-    };
-    let sc = await sendData(data);
-    console.log(sc);
-    render();
-    });
-  
-    render();
-  });
- */
+      if (response.ok) {
+          fetchAndDisplayRecords();
+          // Clear input fields after adding a record
+          document.getElementById("name").value = "";
+          document.getElementById("description").value = "";
+      } else {
+          console.error("Failed to add record");
+      }
+  }
+
+  // Function to edit a record
+  async function editRecord(recordId) {
+      // Implement the logic to edit a record
+      // You may use a modal or a form for editing
+      console.log(`Edit record with ID: ${recordId}`);
+  }
+
+  // Function to delete a record
+  async function deleteRecord(recordId) {
+      const response = await fetch(`${apiUrl}/${recordId}`, {
+          method: "DELETE"
+      });
+
+      if (response.ok) {
+          fetchAndDisplayRecords();
+      } else {
+          console.error("Failed to delete record");
+      }
+  }
+
+  // Initial fetch and display when the page loads
+  fetchAndDisplayRecords();

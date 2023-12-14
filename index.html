@@ -7,29 +7,29 @@
     <title>Product API</title>
 </head>
 <body>
-    <div class='container'>
-        <div>
-            <h1>Inventory Management</h1>
-            <table id='products' class='products'>
-                <th>Product Name</th>
-                <th>Price</th>
-                <th>Stock</th>
-            </table>
-        </div>
-        <div>
+   
+ <h1>CRUD App</h1>
 
-            <form id="input-data">
-                <p>Add New Product</p>
-                <input type='text' id='name' placeholder='Enter Products Name' required>
-                <input type='text' id='price' placeholder='Enter price' required>
-                <input type='text' id='stock' placeholder='Enter quantity stored' required>
-                <input type='submit' id='submit' value='Submit'>
-                <p id='error' class='error'></p>
-            </form>
-            <button id='refresh'>Refresh</button>
-        </div>
-    </div>
+    <!-- Form to add new record -->
+    <form id="addForm">
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <label for="description">Description:</label>
+        <input type="text" id="description" required>
+        <button type="button" onclick="addRecord()">Add Record</button>
+    </form>
 
+    <!-- Table to display records -->
+    <table id="recordTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
     <script src="./index.js"></script>
 </body>
 </html>
