@@ -39,14 +39,11 @@ To run the application locally, follow these steps:
 ## Usage
 
 1. **View Products:**
-
     Open the application in a web browser.
     The products will be automatically fetched and displayed on the page.
-    Edit Product:
 2. **Edit Product:**
     Click on the "Edit" button next to a product.
     Modify the product details and save the changes.
-    Delete Product:
 3. **Delete a Product:**
     Click on the "Delete" button next to a product.
     Confirm the deletion when prompted.
