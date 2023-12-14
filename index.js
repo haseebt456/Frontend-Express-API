@@ -13,9 +13,11 @@
           const cell1 = row.insertCell(0);
           const cell2 = row.insertCell(1);
           const cell3 = row.insertCell(2);
+          const cell4 = row.insertCell(3);
 
           cell1.textContent = record.name;
-          cell2.textContent = record.description;
+          cell2.textContent = record.price;
+          cell3.textContent = record.stock;
 
           // Add buttons for Edit and Delete actions
           const editButton = document.createElement("button");
@@ -26,8 +28,8 @@
           deleteButton.textContent = "Delete";
           deleteButton.onclick = () => deleteRecord(record._id);
 
-          cell3.appendChild(editButton);
-          cell3.appendChild(deleteButton);
+          cell4.appendChild(editButton);
+          cell4.appendChild(deleteButton);
       });
   }
 
