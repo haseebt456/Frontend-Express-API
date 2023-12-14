@@ -1,4 +1,4 @@
-const urlg = "https://crud-api-mongo-xvln-e7w1iujrv-haseebt456s-projects.vercel.app/Products";
+const urlg = "https://crud-api-mongo-xvln.vercel.app/Products";
 
 //Post method
 const sendData = async (data)=>{
@@ -18,32 +18,42 @@ const sendData = async (data)=>{
 
 //get method
 const getData = async ()=>{
-    let p = await fetch(urlg);
+    let p = await fetch(urlg,
+        {
+            method: "GET"
+        });
     let response = await p.json();
-    return response.result;
+    console.log(response.result);
 }
 
-const scorecard = document.querySelector('.leaderboard');
+getData();
+
+//const products = document.querySelector('.products');
 
 
-//rendering data to DOM
+/* //rendering data to DOM
 const render = async ()=>{
-    scorecard.innerHTML = '';
+    products.innerHTML = '';
     const data = await getData();
-    scorecard.innerHTML =  `<tr>
+    products.innerHTML =  `<tr>
     <td class = "head">Name</td>
-    <td class = "head">Score</td>
+    <td class = "head">Price</td>
+    <td class = "head">Stock</td>
 </tr>`;
     const list = data.map((item)=>{
         const tr = document.createElement('tr');
                 const td1 = document.createElement('td');
                 const td2 = document.createElement('td');
-                td1.innerHTML = item.user;
-                td2.innerHTML = item.score;
+                const td3 = document.createElement('td');
+                td1.innerHTML = item.name;
+                td2.innerHTML = item.price;
+                td3.innerHTML = item.stock;
                 td1.setAttribute('class','name');
-                td2.setAttribute('class','score')
+                td2.setAttribute('class','price');
+                td3.setAttribute('class','stock');
                 tr.appendChild(td1);
                 tr.appendChild(td2);
+                tr.appendChild(td3);
                 scorecard.appendChild(tr);
         })
 }
@@ -69,3 +79,4 @@ document.addEventListener('DOMContentLoaded', () => {
   
     render();
   });
+ */
